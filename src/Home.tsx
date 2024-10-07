@@ -9,34 +9,34 @@ function Home() {
   };
 
   return (
-    <div className="app bg-[#f4f6fa] py-24 px-28">
-      <header className='flex gap-2 items-center justify-end'>
+    <div className="app py-6 bg-[#f4f6fa] md:py-24 md:px-28">
+      <header className='flex gap-1 md:gap-5 items-center justify-end'>
         <img src="images/icon-sun-dark.svg" alt="sun" />
         <div className=''>
           <Switch defaultChecked onChange={onChange} />
         </div>
         <img src="images/icon-moon-dark.svg" alt="moon" />
       </header>
-      <main className='flex justify-between'>
-        <div>
-          <h1>Welcome to the Frontend Quiz!</h1>
-          <p>Pick a subject to get started.</p>
+      <main className='flex flex-col md:flex md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
+        <div className='flex flex-col gap-4 md:gap-12 pt-2'>
+          <h1 className='text-[#313E51] text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]'>Welcome to the <span className='font-medium'>Frontend Quiz!</span> </h1>
+          <p className='text-[#626C7F] text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]'>Pick a subject to get started.</p>
         </div>
-        <div>
-          <div className='flex'>
-            <img src="images/icon-html.svg" alt="html" className='bg-[#fff1e9] rounded-xl p-2' />
+        <div className='w-full md:w-[48.883rem] '>
+          <div className='flex p-[0.5rem] md:p-5 w-full bg-white gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5'>
+            <img src="images/icon-html.svg" alt="html" className='bg-[#fff1E9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
             <p>HTML</p>
           </div>
-          <div>
-            <img src="images/icon-css.svg" alt="css" />
+          <div className='flex p-[0.5rem] md:p-5 w-full bg-white gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5'>
+            <img src="images/icon-css.svg" alt="css" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
             <p>CSS</p>
           </div>
-          <div>
-            <img src="images/icon-js.svg" alt="javascript" />
+          <div className='flex p-[0.5rem] md:p-5 w-full bg-white gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5'>
+            <img src="images/icon-js.svg" alt="javascript" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
             <p>JAVASCRIPT</p>
           </div>
-          <div>
-            <img src="images/icon-accessibility.svg" alt="accessibility" />
+          <div className='flex p-[0.5rem] md:p-5 w-full bg-white gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5'>
+            <img src="images/icon-accessibility.svg" alt="accessibility" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
             <p>ACCESSIBILITY</p>
           </div>
 
