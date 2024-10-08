@@ -1,23 +1,24 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch } from 'antd';
 
 function Home() {
 
+  const [dark, setDark] = useState(false)
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
+    checked ? setDark(true) : setDark(false)
   };
 
   return (
-    <div className="app py-6 bg-[#f4f6fa] md:py-24 md:px-28">
+    <div className={`app py-6 ${!dark ? 'bg-[#f4f6fa]' : 'bg-[#313e51]'} md:py-24 md:px-28`}>
       <header className='flex gap-1 md:gap-5 items-center justify-end'>
         <img src="images/icon-sun-dark.svg" alt="sun" />
         <div className=''>
-          <Switch defaultChecked onChange={onChange} />
+          <Switch defaultChecked={false} onChange={onChange} />
         </div>
         <img src="images/icon-moon-dark.svg" alt="moon" />
       </header>
-      <main className='flex flex-col md:flex md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
+      <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
         <div className='flex flex-col gap-4 md:gap-12 pt-2'>
           <h1 className='text-[#313E51] text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]'>Welcome to the <span className='font-medium'>Frontend Quiz!</span> </h1>
           <p className='text-[#626C7F] text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]'>Pick a subject to get started.</p>
@@ -48,4 +49,5 @@ function Home() {
 
 export default Home;
 
-// #313e51
+
+
