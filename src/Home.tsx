@@ -2,6 +2,29 @@ import './App.css';
 import React, { useState } from 'react';
 import { Switch } from 'antd';
 
+interface Subject {
+  img: string,
+  subjectName: String
+}
+const subjects = [
+  {
+    img: 'images/icon-html.svg',
+    subjectName: 'HTML',
+  },
+  {
+    img: 'images/icon-css.svg',
+    subjectName: 'CSS',
+  },
+  {
+    img: 'images/icon-js.svg',
+    subjectName: 'JS',
+  },
+  {
+    img: 'images/icon-accessibility.svg',
+    subjectName: 'ACCESSIBILITY',
+  }
+]
+
 function Home() {
 
   const [dark, setDark] = useState(false)
@@ -25,23 +48,14 @@ function Home() {
           <p className={` ${dark ? 'text-[#ABC1E1]' : 'text-[#626C7F]'} text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]`}>Pick a subject to get started.</p>
         </div>
         <div className='w-full md:w-[48.883rem] '>
-          <div className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-            <img src="images/icon-html.svg" alt="html" className='bg-[#fff1E9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
-            <p>HTML</p>
-          </div>
-          <div className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-            <img src="images/icon-css.svg" alt="css" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
-            <p>CSS</p>
-          </div>
-          <div className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-            <img src="images/icon-js.svg" alt="javascript" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
-            <p>JAVASCRIPT</p>
-          </div>
-          <div className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-            <img src="images/icon-accessibility.svg" alt="accessibility" className='bg-[#fff1e9] rounded md:rounded-xl p-[0.075rem] md:p-2' />
-            <p>ACCESSIBILITY</p>
-          </div>
+          {subjects.map((subject, index) => {
+            return <div key={index} className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+              <img src={subject.img} alt="logo" />
+              <p>{subject.subjectName}</p>
+            </div>
+          })
 
+          }
         </div>
       </main>
     </div>
