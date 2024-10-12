@@ -1,12 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Switch } from 'antd';
+import { Link } from 'react-router-dom';
 
 interface Subject {
   img: string,
   subjectName: String
 }
-const subjects = [
+const subjects : Subject[] = [
   {
     img: 'images/icon-html.svg',
     subjectName: 'HTML',
@@ -49,10 +50,12 @@ function Home() {
         </div>
         <div className='w-full md:w-[48.883rem] '>
           {subjects.map((subject, index) => {
-            return <div key={index} className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+            return <Link to='/quiz'>
+            <div key={index} className={`flex p-[0.5rem] md:p-5 w-full ${!dark ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
               <img src={subject.img} alt="logo" />
               <p>{subject.subjectName}</p>
             </div>
+            </Link>
           })
 
           }
