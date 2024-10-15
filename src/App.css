@@ -25,13 +25,13 @@
     }
 
     .bg-mobile.light {
-        background-image: url('../public/images/bg-mobile-light.svg');
+        background-image: url('../public/assets/images/bg-mobile-light.svg');
         background-size: cover;
         background-repeat: no-repeat;
     }
 
     .bg-mobile.dark {
-        background-image: url('../public/images/bg-mobile-dark.svg');
+        background-image: url('../public/assets/images/bg-mobile-dark.svg');
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -48,13 +48,13 @@
     }
 
     .bg-light {
-        background-image: url('../public/images/bg-desktop-light.svg');
+        background-image: url('../public/assets/images/bg-desktop-light.svg');
         background-size: cover;
         background-repeat: no-repeat
     }
 
     .bg-dark {
-        background-image: url('../public/images/bg-desktop-dark.svg');
+        background-image: url('../public/assets/images/bg-desktop-dark.svg');
         background-size: cover;
         background-repeat: no-repeat
     }
