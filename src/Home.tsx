@@ -57,10 +57,6 @@ function Home() {
   const [displayedQuiz, setDisplayedQuiz] = useState<QuizData[]>([])
   const [selectedSubjectId, setSelectedSubjectId] = useState(0)
 
-  const onChange = (checked: boolean) => {
-    checked ? setDarkTheme(checked) : setDarkTheme(false)
-  };
-
   useEffect(() => {
     axios.get('https://frontend-quiz-backend.onrender.com/quiz')
       .then(response => {
@@ -77,13 +73,7 @@ function Home() {
   return (
     // <div className={`app bg-light py-6 ${!dark ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
-      <header className='flex gap-1 md:gap-5 items-center justify-end'>
-        <img src="assets/images/icon-sun-dark.svg" alt="sun" />
-        <div className=''>
-          <Switch defaultChecked={darkTheme} onChange={onChange} />
-        </div>
-        <img src="assets/images/icon-moon-dark.svg" alt="moon" />
-      </header>
+     <Header />
       <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
         <div className='flex flex-col gap-4 md:gap-12 pt-2'>
           <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]`}>Welcome to the <span className='font-medium'>Frontend Quiz!</span> </h1>

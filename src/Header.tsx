@@ -5,7 +5,7 @@ import { useGlobalContext } from './context';
 const Header = () => {
     const { darkTheme, setDarkTheme } = useGlobalContext()
     const onChange = (checked: boolean) => {
-        checked ? setDarkTheme(true) : setDarkTheme(false)
+        checked ? setDarkTheme(checked) : setDarkTheme(false)
     };
     return (
         <div>
