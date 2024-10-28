@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Switch } from 'antd';
+import { Switch, Flex, Progress } from 'antd';
 import Header from './Header';
 import axios from 'axios'
 import { useGlobalContext } from './context';
@@ -67,8 +67,10 @@ function Home() {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizData | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0)
   const [scorePage, setScorePage] = useState(false)
+  const [totalScore, setTotalScore] = useState(0)
   const [selectedOption, setSelectedOption] = useState("")
-  const [correctAnswer, setCorrectAnswer] = useState(true)
+  const [isCorrectset, setIsCorrect] = useState(false)
+  const [progressPercentage, setProgressPercentage] = useState(0)
 
   useEffect(() => {
     axios.get('https://frontend-quiz-backend.onrender.com/quiz')
@@ -96,16 +98,16 @@ function Home() {
   }
 
   const handleSubmit = () => {
-
     if (selectedQuiz?.questions[questionIndex].options.includes(selectedOption)) {
       setQuestionIndex(questionIndex + 1)
     } else {
-     return ""
+      return ""
     }
     if (selectedQuiz?.questions[questionIndex].answer === selectedOption) {
-      setCorrectAnswer(true)
+      setTotalScore(totalScore + 1)
+      setIsCorrect(true)
     } else {
-      setCorrectAnswer(false)
+      setIsCorrect(false)
     }
     if (questionIndex === 9) {
       setScorePage(true)
@@ -129,13 +131,18 @@ function Home() {
     Accessibility: 'bg-[#F6E7FF]'
   }
   useEffect(() => {
-     //console.log(selectedQuiz !== null ? selectedQuiz.questions[questionIndex].options : "try again");
-  }, [selectedQuiz]);
+    if (selectedQuiz) {
+      setProgressPercentage(questionIndex * selectedQuiz?.questions.length)
+      console.log(progressPercentage)
+    }
+  }, [questionIndex]);
 
   const restartQuiz = () => {
     setSubjectList(true)
     alert("Clickked")
-  } 
+  }
+
+
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
@@ -172,7 +179,7 @@ function Home() {
                 <img src={selectedQuiz?.icon} alt="logo" className={`rounded-2xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
                 <p>{selectedQuiz?.title}</p>
               </div>
-              <p className='text-center text-[9rem]'>0</p>
+              <p className='text-center text-[9rem]'>{totalScore}</p>
               <p className='text-2xl text-center'>out of 10</p>
             </div>
             <button onClick={restartQuiz} className={`flex p-[0.5rem] mt-8 md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5 text-center`}>Play again</button>
@@ -190,14 +197,16 @@ function Home() {
                   <div>
                     <p>Question {questionIndex <= 9 ? questionIndex + 1 : ''} of {selectedQuiz?.questions.length}</p>
                     <p>{selectedQuiz.questions[questionIndex]?.question}</p>
-
+                    <Flex gap="small" vertical className='mt-16'>
+                      <Progress percent={progressPercentage} showInfo={false} />
+                    </Flex>
                   </div>
 
                   <div className='w-full md:w-[48.883rem] '>
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                       flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
-                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]' } hover:bg-[#f0d9e7] rounded-2xl px-6 py-3`}>{String.fromCharCode(65 + index )}</p>
+                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-2xl px-6 py-3`}>{String.fromCharCode(65 + index)}</p>
                         <p>{option}</p>
                       </div>
                     })
