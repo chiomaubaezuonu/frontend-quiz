@@ -67,8 +67,8 @@ function Home() {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizData | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0)
   const [scorePage, setScorePage] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(-1)
-  const [optionIndex, setOptionIndex] = useState(0)
+  const [selectedOption, setSelectedOption] = useState("")
+  const [correctAnswer, setCorrectAnswer] = useState(true)
 
   useEffect(() => {
     axios.get('https://frontend-quiz-backend.onrender.com/quiz')
@@ -96,11 +96,22 @@ function Home() {
   }
 
   const handleSubmit = () => {
-    setQuestionIndex(questionIndex + 1)
+
+    if (selectedQuiz?.questions[questionIndex].options.includes(selectedOption)) {
+      setQuestionIndex(questionIndex + 1)
+    } else {
+     return ""
+    }
+    if (selectedQuiz?.questions[questionIndex].answer === selectedOption) {
+      setCorrectAnswer(true)
+    } else {
+      setCorrectAnswer(false)
+    }
     if (questionIndex === 9) {
       setScorePage(true)
       setSubjectList(true)
     }
+
   }
 
   interface BgColors {
@@ -118,13 +129,14 @@ function Home() {
     Accessibility: 'bg-[#F6E7FF]'
   }
   useEffect(() => {
-    console.log(selectedQuiz !== null ? selectedQuiz.title : "try again");
+    // console.log(selectedQuiz !== null ? selectedQuiz.questions[questionIndex].answer : "try again");
   }, [selectedQuiz]);
 
   const restartQuiz = () => {
     setSubjectList(true)
     alert("Clickked")
   }
+  console.log(selectedOption)
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
@@ -174,8 +186,6 @@ function Home() {
             selectedQuiz !== null ?
               <div>
                 <div className='flex'>
-                  {/* <img src={selectedQuiz?.icon} alt="logo" className={`bgColors[selectedQuiz._id] `} />
-                  <p>{selectedQuiz?.title}</p> */}
                 </div>
                 <main className='flex justify-between items-stretch' >
                   <div>
@@ -185,13 +195,13 @@ function Home() {
                   </div>
 
                   <div className='w-full md:w-[48.883rem] '>
-                    {selectedQuiz.questions[questionIndex]?.options.map((option) => {
-                      return <div onClick={() => setSelectedOption} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+                    {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
+                      return <div onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
+                      flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
                         <p className='text-[#626C7F] hover:text-[#a729f5] bg-[#F4F6FA] hover:bg-[#f0d9e7] rounded-2xl px-6 py-3'>A</p>
                         <p>{option}</p>
                       </div>
                     })
-
                     }
                     <button onClick={handleSubmit} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>Submit Answer</button>
                   </div>
@@ -202,14 +212,6 @@ function Home() {
 
         </div>
       }
-      {/* {scorePage ? <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
-        <div className='flex flex-col gap-4 md:gap-12 pt-2'>
-          <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem] bg-lime-500`}>{scorePage ? 'Quiz completed' : 'Welcome to the'}<span className='font-medium'>Frontend Quiz!</span> </h1>
-          <p className={` ${darkTheme ? 'text-[#ABC1E1]' : 'text-[#626C7F]'} text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]`}>Pick a subject to get started.</p>
-        </div>
-      </main>
-        : ""
-      } */}
     </div>
   );
 }
