@@ -129,14 +129,13 @@ function Home() {
     Accessibility: 'bg-[#F6E7FF]'
   }
   useEffect(() => {
-    // console.log(selectedQuiz !== null ? selectedQuiz.questions[questionIndex].answer : "try again");
+     //console.log(selectedQuiz !== null ? selectedQuiz.questions[questionIndex].options : "try again");
   }, [selectedQuiz]);
 
   const restartQuiz = () => {
     setSubjectList(true)
     alert("Clickked")
-  }
-  console.log(selectedOption)
+  } 
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
@@ -196,9 +195,9 @@ function Home() {
 
                   <div className='w-full md:w-[48.883rem] '>
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
-                      return <div onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
+                      return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                       flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
-                        <p className='text-[#626C7F] hover:text-[#a729f5] bg-[#F4F6FA] hover:bg-[#f0d9e7] rounded-2xl px-6 py-3'>A</p>
+                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]' } hover:bg-[#f0d9e7] rounded-2xl px-6 py-3`}>{String.fromCharCode(65 + index )}</p>
                         <p>{option}</p>
                       </div>
                     })
