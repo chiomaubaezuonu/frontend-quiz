@@ -6,13 +6,11 @@
 }
 
 .ant-switch {
-    width: 20px;
+    width: 1.4rem;
 }
 
-.ant-switch.ant-switch-checked .ant-switch-inner {
+.ant-switch .ant-switch-inner {
     background-color: rgb(167, 41, 245);
-    border: none;
-    /* border: 1px solid rgb(167, 41, 245); */
 }
 
 

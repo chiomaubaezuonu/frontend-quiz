@@ -206,7 +206,7 @@ function Home() {
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                       flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
-                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-2xl px-6 py-3`}>{String.fromCharCode(65 + index)}</p>
+                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption === option ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-2xl px-6 py-3`}>{String.fromCharCode(65 + index)}</p>
                         <p>{option}</p>
                       </div>
                     })
