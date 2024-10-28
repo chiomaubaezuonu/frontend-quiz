@@ -133,13 +133,12 @@ function Home() {
   useEffect(() => {
     if (selectedQuiz) {
       setProgressPercentage(questionIndex * selectedQuiz?.questions.length)
-      console.log(progressPercentage)
     }
   }, [questionIndex]);
 
   const restartQuiz = () => {
     setSubjectList(true)
-    alert("Clickked")
+    setScorePage(false)
   }
 
 
@@ -167,7 +166,7 @@ function Home() {
           <div className='w-full md:w-[48.883rem]' >
             {subjects.map((subject) => {
               return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-                <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-2xl px-2 py-2`} />
+                <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-xl px-2 py-2`} />
                 <p>{subject.subjectName}</p>
               </div>
             }
@@ -175,14 +174,14 @@ function Home() {
           </div> :
           <div>
             <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
-              <div className='flex justify-center items-center'>
-                <img src={selectedQuiz?.icon} alt="logo" className={`rounded-2xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
+              <div className='flex justify-center items-center gap-6'>
+                <img src={selectedQuiz?.icon} alt="logo" className={`rounded-xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
                 <p>{selectedQuiz?.title}</p>
               </div>
               <p className='text-center text-[9rem]'>{totalScore}</p>
               <p className='text-2xl text-center'>out of 10</p>
             </div>
-            <button onClick={restartQuiz} className={`flex p-[0.5rem] mt-8 md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5 text-center`}>Play again</button>
+            <button onClick={restartQuiz} className={`flex justify-center p-[0.5rem] mt-8 md:p-6 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6  text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>Play again</button>
           </div>
         }
       </main>
@@ -197,9 +196,10 @@ function Home() {
                   <div>
                     <p>Question {questionIndex <= 9 ? questionIndex + 1 : ''} of {selectedQuiz?.questions.length}</p>
                     <p>{selectedQuiz.questions[questionIndex]?.question}</p>
-                    <Flex gap="small" vertical className='mt-16'>
-                      <Progress percent={progressPercentage} showInfo={false} />
-                    </Flex>
+                    {scorePage && subjectList ? " " :
+                      <Flex gap="small" vertical className='mt-16'>
+                        <Progress percent={progressPercentage} showInfo={false} />
+                      </Flex>}
                   </div>
 
                   <div className='w-full md:w-[48.883rem] '>
