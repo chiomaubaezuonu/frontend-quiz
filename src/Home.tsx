@@ -88,6 +88,7 @@ function Home() {
     if (subjectId !== null && subjectId !== undefined && totalQuiz.length > 0) {
       const selectedQuiz = totalQuiz.find((eachQuiz, index) => index === subjectId)
       if (selectedQuiz) {
+        setQuestionIndex(0)
         setSelectedQuiz(selectedQuiz)
       } else {
 
@@ -145,6 +146,7 @@ function Home() {
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
+      {/* if subjectList is true, display just header component. else display header, imported icon and title */}
       {subjectList ?
         <Header />
         :
@@ -156,42 +158,46 @@ function Home() {
           <Header />
         </div>
       }
-      {subjectList ? <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
-        <div className='flex flex-col gap-4 md:gap-12 pt-2'>
-          <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]`}>{scorePage ? 'Quiz completed ' : 'Welcome to the'}
-            <span className='font-medium'>{scorePage ? 'You scored...' : 'Frontend Quiz!'}</span> </h1>
-          {scorePage ? " " : <p className={` ${darkTheme ? 'text-[#ABC1E1]' : 'text-[#626C7F]'} text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]`}>Pick a subject to get started.</p>}
-        </div>
-        {!scorePage ?
-          <div className='w-full md:w-[48.883rem]' >
-            {subjects.map((subject) => {
-              return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-                <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-xl px-2 py-2`} />
-                <p>{subject.subjectName}</p>
-              </div>
-            }
-            )}
-          </div> :
-          <div>
-            <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
-              <div className='flex justify-center items-center gap-6'>
-                <img src={selectedQuiz?.icon} alt="logo" className={`rounded-xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
-                <p>{selectedQuiz?.title}</p>
-              </div>
-              <p className='text-center text-[9rem]'>{totalScore}</p>
-              <p className='text-2xl text-center'>out of 10</p>
-            </div>
-            <button onClick={restartQuiz} className={`flex justify-center p-[0.5rem] mt-8 md:p-6 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6  text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>Play again</button>
+
+      {/* if subjectList is true, display Welcome note  */}
+      {subjectList ?
+        <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
+          <div className='flex flex-col gap-4 md:gap-12 pt-2'>
+            <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]`}>{scorePage ? 'Quiz completed ' : 'Welcome to the'}
+              <span className='font-medium'>{scorePage ? 'You scored...' : 'Frontend Quiz!'}</span> </h1>
+            {scorePage ? " " : <p className={` ${darkTheme ? 'text-[#ABC1E1]' : 'text-[#626C7F]'} text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]`}>Pick a subject to get started.</p>}
+
           </div>
-        }
-      </main>
+          {/* If scorePage is false, display subjectList besides welcome note else dispay score bpard */}
+          {!scorePage ?
+            <div className='w-full md:w-[48.883rem]' >
+              {subjects.map((subject) => {
+                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+                  <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-xl px-2 py-2`} />
+                  <p>{subject.subjectName}</p>
+                </div>
+              }
+              )}
+            </div> :
+            <div>
+              <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
+                <div className='flex justify-center items-center gap-6'>
+                  <img src={selectedQuiz?.icon} alt="logo" className={`rounded-xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
+                  <p>{selectedQuiz?.title}</p>
+                </div>
+                <p className='text-center text-[9rem]'>{totalScore}</p>
+                <p className='text-2xl text-center'>out of 10</p>
+              </div>
+              <button onClick={restartQuiz} className={`flex justify-center p-[0.5rem] mt-8 md:p-6 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6  text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>Play again</button>
+            </div>
+          }
+
+        </main>
         :
         <div>
           {
-            selectedQuiz !== null ?
+            selectedQuiz !== null && !subjectList?
               <div>
-                <div className='flex'>
-                </div>
                 <main className='flex justify-between items-stretch' >
                   <div>
                     <p>Question {questionIndex <= 9 ? questionIndex + 1 : ''} of {selectedQuiz?.questions.length}</p>
@@ -202,7 +208,7 @@ function Home() {
                       </Flex>}
                   </div>
 
-                  <div className='w-full md:w-[48.883rem] '>
+                  <div className='w-full md:w-[48.883rem]'>
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                       flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
