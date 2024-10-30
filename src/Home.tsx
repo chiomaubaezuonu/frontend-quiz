@@ -180,7 +180,7 @@ function Home() {
   }
 
   return (
-    <div className={`app py-6 ${!darkTheme ? "bg-light bg-mobile-light bg-[#f4f6fa]" : "bg-dark bg-mobile-dark bg-[#313e51]"} md:py-24 md:px-28`}>
+    <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
       {/* if subjectList is true, display just header component. else display header, imported icon and title */}
       {subjectList ?
         <Header />
@@ -198,7 +198,7 @@ function Home() {
       {subjectList ?
         <main className='flex flex-col md:flex-row md:justify-between w-full mt-12 md:mt-24 gap-9 md:gap-6'>
           <div className='flex flex-col gap-4 md:gap-12 pt-2'>
-            <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]`}>{scorePage ? 'Quiz completed ' : 'Welcome to the'}
+            <h1 className={`${darkTheme ? 'text-white' : 'text-[#313E51]'} text-[2.5rem] md:text-[4rem] leading-[2.5rem] md:leading-[3.6rem]`}>{scorePage ? 'Quiz completed ' : 'Welcome to the '}
               <span className='font-medium'>{scorePage ? 'You scored...' : 'Frontend Quiz!'}</span> </h1>
             {scorePage ? " " : <p className={` ${darkTheme ? 'text-[#ABC1E1]' : 'text-[#626C7F]'} text-[0.875rem] md:text-[1.25rem] italic font-normal mt-[-0.2rem]`}>Pick a subject to get started.</p>}
 
@@ -207,8 +207,8 @@ function Home() {
           {!scorePage ?
             <div className='w-full md:w-[48.883rem]' >
               {subjects.map((subject) => {
-                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5 `}>
-                  <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-xl px-2 py-2`} />
+                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white border-white' : 'bg-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+                  <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-lg md:rounded-xl p-[0.375rem] w-10 md:px-2 md:py-2`}  />
                   <p>{subject.subjectName}</p>
                 </div>
               }

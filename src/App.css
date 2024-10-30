@@ -19,21 +19,20 @@
     .app {
         height: 100vh;
         padding: 0 1.5rem;
-
     }
 
-    .bg-mobile.light {
+   
+
+    .bg-light {
         background-image: url('../public/assets/images/bg-mobile-light.svg');
         background-size: cover;
         background-repeat: no-repeat;
     }
-
-    .bg-mobile.dark {
-        background-image: url('../public/assets/images/bg-mobile-dark.svg');
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-
+.bg-dark{
+    background-image: url('../public/assets/images/bg-mobile-dark.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 }
 
 @media(min-width: 601px) {
