@@ -187,8 +187,8 @@ function Home() {
         :
         <div className='flex justify-between'>
           <div className='flex gap-6 items-center'>
-            <img src={selectedQuiz?.icon} alt="logo" className={`rounded-2xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]} `} />
-            <p className='text-3xl'>{selectedQuiz?.title}</p>
+            <img src={selectedQuiz?.icon} alt="logo" className={`rounded-lg p-[0.375rem] w-10 md:rounded-2xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]} `} />
+            <p className='text-lg md:text-3xl font-medium text-[#313e51]'>{selectedQuiz?.title}</p>
           </div>
           <Header />
         </div>
@@ -207,8 +207,8 @@ function Home() {
           {!scorePage ?
             <div className='w-full md:w-[48.883rem]' >
               {subjects.map((subject) => {
-                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white border-white' : 'bg-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
-                  <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-lg md:rounded-xl p-[0.375rem] w-10 md:px-2 md:py-2`}  />
+                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] px-2 md:py-4 md:px-4 w-full ${!darkTheme ? 'bg-white border-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-8 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+                  <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-lg md:rounded-xl p-[0.375rem] w-10 md:w-14 md:px-2 md:py-2`} />
                   <p>{subject.subjectName}</p>
                 </div>
               }
@@ -233,22 +233,22 @@ function Home() {
           {
             selectedQuiz !== null && !subjectList ?
               <div>
-                <main className='flex justify-between items-stretch transition-all' >
-                  <div>
-                    <p>Question {questionIndex <= 9 ? questionIndex + 1 : ''} of {selectedQuiz?.questions.length}</p>
-                    <p>{selectedQuiz.questions[questionIndex]?.question}</p>
+                <main className='flex flex-col w-full md:flex-row md:justify-between items-stretch gap-14 transition: opacity 0.5s ease-outs' >
+                  <div className='mt-6 md:mt-[4.5rem] md:w-6/12'>
+                    <p className='text-[#626C7F] italic text-sm md:text-xl'>Question {questionIndex <= 9 ? questionIndex + 1 : ''} of {selectedQuiz?.questions.length}</p>
+                    <p className='mt-[0.75rem] md:mt-6 text-xl md:text-4xl text-[#313E51] font-medium'>{selectedQuiz.questions[questionIndex]?.question}</p>
                     {scorePage && subjectList ? " " :
-                      <Flex gap="small" vertical className='mt-16'>
+                      <Flex gap="small" vertical className={`${darkTheme ? "dark-theme" : "light-theme"} mt-6 md:mt-40`}>
                         <Progress percent={progressPercentage} showInfo={false} />
                       </Flex>}
                   </div>
 
-                  <div className='w-full md:w-[48.883rem]'>
+                  <div className='w-full md:w-7/12 md:mt-[4.5rem]'>
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                         ${buttonText === "Next Question" ? (isCorrect ? 'border-green-500' : 'border-red-500') : ""}
                         ${disableOptions ? 'pointer-events-none' : ''}
-                      flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl    cursor-pointer mb-3 md:mb-5`}>
+                      flex p-[0.5rem] px-2 md:py-4 md:px-5 ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>
                         <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption === option ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-2xl px-6 py-3 
                         ${buttonText === "Next Question" && selectedOption === option ? (isCorrect ? 'bg-green-500' : 'bg-red-500') : ""}
                           `}>{String.fromCharCode(65 + index)}</p>
@@ -265,8 +265,8 @@ function Home() {
                       </div>
                     })
                     }
-                    <button onClick={handleSubmit} className={`flex justify-center p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} 
-                       gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>{buttonText}</button>
+                    <button onClick={handleSubmit} className={`flex justify-center p-[1rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} 
+                       gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[#a729f5] border-[0.2rem] hover:opacity-45 cursor-pointer mb-3 md:mb-5`}>{buttonText}</button>
                   </div>
                 </main>
               </div>
