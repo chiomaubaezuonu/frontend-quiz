@@ -10,11 +10,20 @@ const Header = () => {
     return (
         <div>
             <header className='flex gap-1 md:gap-5 items-center justify-end'>
-                <img src="assets/images/icon-sun-dark.svg" alt="sun" />
+                {darkTheme ?
+                    <img src="assets/images/icon-sun-light.svg" alt="sun" />
+                    :
+                    <img src="assets/images/icon-sun-dark.svg" alt="sun" />
+                }
                 <div className=''>
                     <Switch defaultChecked={false} onChange={onChange} />
                 </div>
-                <img src="assets/images/icon-moon-dark.svg" alt="moon" />
+                {
+                    darkTheme ?
+                        <img src="assets/images/icon-moon-light.svg" alt="moon" />
+                        :
+                        <img src="assets/images/icon-moon-dark.svg" alt="moon" />
+                }
             </header>
         </div>
     )

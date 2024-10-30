@@ -175,6 +175,8 @@ function Home() {
     setSubjectList(true)
     setScorePage(false)
     setDisableOptions(false)
+    setButtonText("Submit Answer")
+    setTotalScore(0)
   }
 
   return (
@@ -205,7 +207,7 @@ function Home() {
           {!scorePage ?
             <div className='w-full md:w-[48.883rem]' >
               {subjects.map((subject) => {
-                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-white border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5`}>
+                return <div onClick={() => handleShowQuiz(subject.id)} key={subject.id} className={`flex p-[0.5rem] md:p-5 w-full ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[0.2rem] hover:border-[#a729f5] cursor-pointer mb-3 md:mb-5 `}>
                   <img src={subject.img} alt="logo" className={`${subject.backgroundColor} rounded-xl px-2 py-2`} />
                   <p>{subject.subjectName}</p>
                 </div>
@@ -251,7 +253,15 @@ function Home() {
                         ${buttonText === "Next Question" && selectedOption === option ? (isCorrect ? 'bg-green-500' : 'bg-red-500') : ""}
                           `}>{String.fromCharCode(65 + index)}</p>
                         <p>{option}</p>
-                      
+                        {/* Restart here after making app responsive */}
+                        {/* {selectedOption && selectedOption === option  ? 
+                       ( buttonText !== "Next question" && isCorrect ?
+                          <img src='assets/images/icon-correct.svg' alt='correct-answer' />
+                          :
+                          <img src='assets/images/icon-incorrect.svg' alt='incorrect-answer' />
+                       )
+                        : ""        
+                        } */}
                       </div>
                     })
                     }
