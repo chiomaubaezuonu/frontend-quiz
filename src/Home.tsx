@@ -73,6 +73,7 @@ function Home() {
   const [progressPercentage, setProgressPercentage] = useState(0)
   const [buttonText, setButtonText] = useState("Submit Answer")
   const [disableOptions, setDisableOptions] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(false)
 
   useEffect(() => {
     axios.get('https://frontend-quiz-backend.onrender.com/quiz')
@@ -127,11 +128,11 @@ function Home() {
 
     //new
     if (!selectedQuiz?.questions[questionIndex].options.includes(selectedOption)) {
+      setErrorMsg(true)
       return;
     }
     setButtonText("Next Question")
     setDisableOptions(true)
-
     if (selectedOption === selectedQuiz.questions[questionIndex].answer) {
       setIsCorrect(true)
     }
@@ -170,7 +171,10 @@ function Home() {
     if (selectedQuiz) {
       setProgressPercentage(questionIndex * selectedQuiz?.questions.length)
     }
-  }, [questionIndex]);
+    if(selectedQuiz?.questions[questionIndex].options.includes(selectedOption)){
+      setErrorMsg(false)
+    }
+  }, [questionIndex, selectedOption]);
 
   const restartQuiz = () => {
     setSubjectList(true)
@@ -179,7 +183,6 @@ function Home() {
     setButtonText("Submit Answer")
     setTotalScore(0)
   }
-  console.log(totalScore)
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
@@ -251,18 +254,34 @@ function Home() {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                         ${buttonText === "Next Question" ? (isCorrect ? 'border-green-500' : 'border-red-500') : ""}
                         ${disableOptions ? 'pointer-events-none' : ''}
-                      flex p-[0.5rem] px-2 md:py-4 md:px-5 ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>
-                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption === option ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-2xl px-6 py-3 
+                      flex p-[0.5rem] px-2 md:py-4 md:px-5 ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'} gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5 flex-grow `}>
+                        <p className={`text-[#626C7F] hover:text-[#a729f5] ${selectedOption === option ? 'bg-[#a729f5] text-white' : 'bg-[#F4F6FA]'} hover:bg-[#f0d9e7] rounded-lg px-[0.9rem] py-2  md:rounded-2xl md:px-6 md:py-3 
                         ${buttonText === "Next Question" && selectedOption === option ? (isCorrect ? 'bg-green-500' : 'bg-red-500') : ""}
                           `}>{String.fromCharCode(65 + index)}</p>
-                        <p>{option}</p>
-                        {buttonText === "Next Question" ? (isCorrect && selectedOption === option ? <img src='assets/images/icon-correct.svg' alt='correct answer indicator' /> : '') : ""}
-                        {buttonText === "Next Question" ? (!isCorrect && selectedOption === option ? <img src='assets/images/icon-incorrect.svg' alt='incorrect answer indicator' /> : '') : ""}
+                        <p className='text-base md:text-3xl'>{option}</p>
+                        <div className='ml-auto'>
+                          {buttonText === "Next Question" ? (isCorrect && selectedOption === option ?
+                            <img src='assets/images/icon-correct.svg' alt='correct answer indicator' className='w-10' /> : '') : ""}
+                        </div>
+                        <div className='ml-auto'>
+                          {buttonText === "Next Question" ? (!isCorrect && selectedOption === option ? <img src='assets/images/icon-incorrect.svg' alt='incorrect answer indicator' /> : '') : ""}
+                        </div>
+                        <div className='ml-auto'>
+                          {buttonText === "Next Question" ? (!isCorrect && option === selectedQuiz.questions[questionIndex].answer ? <img src='assets/images/icon-correct.svg' alt='correct answer indicator' className='w-10' /> : '') : ""}
+                        </div>
                       </div>
                     })
                     }
                     <button onClick={handleSubmit} className={`flex justify-center p-[1rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} 
                        gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[#a729f5] border-[0.2rem] hover:opacity-45 cursor-pointer mb-3 md:mb-5`}>{buttonText}</button>
+                    {errorMsg
+                      &&
+                      <div className='flex justify-center items-center'>
+                        <img src="assets/images/icon-incorrect.svg" alt="incorrect" />
+                        <p className='text-[#EE5454] text-lg md:text-3xl'>Please select an answer</p>
+                      </div>
+                    }
+
                   </div>
                 </main>
               </div>
