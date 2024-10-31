@@ -187,7 +187,7 @@ function Home() {
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
       {/* if subjectList is true, display just header component. else display header, imported icon and title */}
-      {subjectList ?
+      {subjectList && !scorePage ?
         <Header />
         :
         <div className='flex justify-between'>
