@@ -171,7 +171,7 @@ function Home() {
     if (selectedQuiz) {
       setProgressPercentage(questionIndex * selectedQuiz?.questions.length)
     }
-    if(selectedQuiz?.questions[questionIndex].options.includes(selectedOption)){
+    if (selectedQuiz?.questions[questionIndex].options.includes(selectedOption)) {
       setErrorMsg(false)
     }
   }, [questionIndex, selectedOption]);
@@ -185,7 +185,7 @@ function Home() {
   }
 
   return (
-    <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
+    <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"}  block md:py-24 md:px-28`}>
       {/* if subjectList is true, display just header component. else display header, imported icon and title */}
       {subjectList && !scorePage ?
         <Header />
@@ -220,6 +220,7 @@ function Home() {
               }
               )}
             </div> :
+            // total  score section
             <div>
               <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-3 md:p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
                 <div className='flex justify-center items-center gap-6'>
@@ -249,7 +250,8 @@ function Home() {
                       </Flex>}
                   </div>
 
-                  <div className='w-full md:w-7/12 md:mt-[4.5rem]'>
+                  {/* Options Section */}
+                  <div className='w-full md:w-7/12 mt-[-3rem] md:mt-[4.5rem]'>
                     {selectedQuiz.questions[questionIndex]?.options.map((option, index) => {
                       return <div key={index} onClick={() => setSelectedOption(option)} className={`${selectedOption === option ? 'border-[0.2rem] border-[#a729f5]' : ''}
                         ${buttonText === "Next Question" ? (isCorrect ? 'border-green-500' : 'border-red-500') : ""}
@@ -272,7 +274,7 @@ function Home() {
                       </div>
                     })
                     }
-                    <button onClick={handleSubmit} className={`flex justify-center p-[1rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} 
+                    <button onClick={handleSubmit} className={`flex justify-center p-[0.8rem] md:p-5 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} 
                        gap-6 items-center flex-start text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl border-[#a729f5] border-[0.2rem] hover:opacity-45 cursor-pointer mb-3 md:mb-5`}>{buttonText}</button>
                     {errorMsg
                       &&
