@@ -221,15 +221,15 @@ function Home() {
               )}
             </div> :
             <div>
-              <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
+              <div className={`w-full md:w-[34.883rem] shadow-lg rounded-xl p-3 md:p-12 gap-10 md:rounded-3xl ${!darkTheme ? 'bg-white' : 'bg-[#3B4D66] border-[#3B4D66] text-white'}`} >
                 <div className='flex justify-center items-center gap-6'>
                   <img src={selectedQuiz?.icon} alt="logo" className={`rounded-xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]}`} />
                   <p>{selectedQuiz?.title}</p>
                 </div>
-                <p className='text-center text-[9rem]'>{totalScore}</p>
+                <p className='text-center text-[5.5rem] md:text-[9rem]'>{totalScore}</p>
                 <p className='text-2xl text-center'>out of 10</p>
               </div>
-              <button onClick={restartQuiz} className={`flex justify-center p-[0.5rem] mt-8 md:p-6 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6  text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>Play again</button>
+              <button onClick={restartQuiz} className={`flex justify-center p-[0.9rem] mt-3 md:mt-8 md:p-6 w-full ${!darkTheme ? 'bg-[#a729f5] text-white' : 'bg-[#a729f5] border-[#a729f5] text-white'} gap-6  text-[1.125rem] md:text-[1.75rem] font-medium text-[#313E51] rounded-xl md:rounded-3xl cursor-pointer mb-3 md:mb-5`}>Play again</button>
             </div>
           }
 
