@@ -134,7 +134,6 @@ function Home() {
 
     if (selectedOption === selectedQuiz.questions[questionIndex].answer) {
       setIsCorrect(true)
-      setTotalScore(totalScore + 1)
     }
     else {
       setIsCorrect(false)
@@ -144,7 +143,9 @@ function Home() {
       setButtonText("Submit Answer")
       setDisableOptions(false)
     }
-
+    if (selectedQuiz.questions[questionIndex].answer === selectedOption && buttonText === "Next Question") {
+      setTotalScore(totalScore + 1)
+    }
     if (questionIndex === 9) {
       setScorePage(true)
       setSubjectList(true)
@@ -178,6 +179,7 @@ function Home() {
     setButtonText("Submit Answer")
     setTotalScore(0)
   }
+  console.log(totalScore)
 
   return (
     <div className={`app py-6 ${!darkTheme ? "bg-light bg-[#f4f6fa]" : "bg-dark bg-[#313e51]"} md:py-24 md:px-28`}>
@@ -190,6 +192,7 @@ function Home() {
             <img src={selectedQuiz?.icon} alt="logo" className={`rounded-lg p-[0.375rem] w-10 md:rounded-2xl px-2 py-2 ${bgColors[selectedQuiz?.title as keyof BgColors]} `} />
             <p className='text-lg md:text-3xl font-medium text-[#313e51]'>{selectedQuiz?.title}</p>
           </div>
+
           <Header />
         </div>
       }
@@ -253,15 +256,8 @@ function Home() {
                         ${buttonText === "Next Question" && selectedOption === option ? (isCorrect ? 'bg-green-500' : 'bg-red-500') : ""}
                           `}>{String.fromCharCode(65 + index)}</p>
                         <p>{option}</p>
-                        {/* Restart here after making app responsive */}
-                        {/* {selectedOption && selectedOption === option  ? 
-                       ( buttonText !== "Next question" && isCorrect ?
-                          <img src='assets/images/icon-correct.svg' alt='correct-answer' />
-                          :
-                          <img src='assets/images/icon-incorrect.svg' alt='incorrect-answer' />
-                       )
-                        : ""        
-                        } */}
+                        {buttonText === "Next Question" ? (isCorrect && selectedOption === option ? <img src='assets/images/icon-correct.svg' alt='correct answer indicator' /> : '') : ""}
+                        {buttonText === "Next Question" ? (!isCorrect && selectedOption === option ? <img src='assets/images/icon-incorrect.svg' alt='incorrect answer indicator' /> : '') : ""}
                       </div>
                     })
                     }

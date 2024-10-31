@@ -29,11 +29,11 @@
 .ant-progress .ant-progress-bg {
     background: #a729f5;
 }
-.ant-switch {
+/* .ant-switch {
     width: 3.5rem;
     height: 2rem;
     object-fit: cover;
-}
+} */
 @media(max-width: 600px) {
     .app {
         height: 100vh;
